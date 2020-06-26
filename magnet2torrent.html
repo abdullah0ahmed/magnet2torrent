@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .wrapper {
+            text-align: center;
+        }
+        
+        .button {
+            width: 30%;
+            top: 50%;
+            background-color: red;
+            border: none;
+            font-weight: bold;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 2px 2px;
+            cursor: pointer;
+        }
+        
+        .button2 {
+            width: 14%;
+            top: 50%;
+            background-color: red;
+            border: none;
+            font-weight: bold;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 2px 2px;
+            cursor: pointer;
+        }
+        
+        input[type=text] {
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px;
+            padding: 12px 20px 12px 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="width:80%; padding: 10% 10%">
+        <div class="wrapper">
+            <p style="color: #FFFFFF;
+                background: #333333;
+                text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px; padding: 2% 2%; font-weight: bold; font-size: 30px;">Magnet Link</p>
+
+        </div>
+        <input type="text" id="magnet" onfocus="this.value=''" placeholder="Paste your magnet link here...">
+        <br/><br/>
+        <div class="wrapper">
+            <button class="button" onclick="convert()">Get Torrent File Link!!</button>
+        </div>
+
+        <br/>
+        <input type="text" id="torrentField" style="width: 69%;" readonly>
+        <button class="button2" onclick="myFunction()" style="background-color: green;">Copy Link</button>
+        <button class="button2" onclick="downloadTorrent()" style="background-color: green;">Download</button>
+
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    function downloadTorrent() {
+        var copyText = document.getElementById("torrentField");
+
+        if (copyText.value == "") {
+            alert("Error: There is no valid link to download!");
+        } else
+            window.open(copyText.value, '_blank');
+
+    }
+
+    function convert() {
+        var magnetString = document.getElementById("magnet").value;
+        if (magnetString == "") {
+            alert("Error: The field must not be empty!");
+        } else {
+            var torrent = "https://itorrents.org/torrent/";
+            var subString = magnetString.substring(magnetString.indexOf("ih:") + 3, magnetString.indexOf('&')) + ".torrent";
+
+            if (subString.length < 12) {
+                alert("Oops: This website is not supported yet, Sorry we will fix this issue soon!")
+            } else {
+
+                document.getElementById("torrentField").value = torrent + subString;
+                document.getElementById("magnet") = '';
+            }
+
+        }
+
+    }
+
+    function myFunction() {
+        /* Get the text field */
+        var copyText = document.getElementById("torrentField");
+
+        if (copyText.value == "") {
+            alert("Error: No Link to Copy!");
+        } else {
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+        }
+    }
+</script>
